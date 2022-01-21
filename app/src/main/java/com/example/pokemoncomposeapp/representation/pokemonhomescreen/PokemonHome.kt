@@ -1,4 +1,4 @@
-package com.example.pokemoncomposeapp.representation.PokemonHome
+package com.example.pokemoncomposeapp.representation.pokemonhomescreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -12,7 +12,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -30,11 +29,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.request.ImageRequest
 import com.example.pokemoncomposeapp.R
 import com.example.pokemoncomposeapp.data.PokemonHomeEntry
+import com.example.pokemoncomposeapp.responses.PokemonList
 import com.example.pokemoncomposeapp.ui.theme.RobotoCondensed
 import com.example.pokemoncomposeapp.util.POKEMON_DETAIL_SCREEN
 import com.google.accompanist.coil.CoilImage
@@ -42,6 +41,7 @@ import com.google.accompanist.coil.CoilImage
 @Composable
 fun PokemonHome(
     navController: NavController,
+    pokemonHomeViewModel : PokemonHomeViewModel = hiltViewModel()
 ) {
     Surface(
         modifier = Modifier
@@ -61,11 +61,14 @@ fun PokemonHome(
                 Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
-            ) { newSearchTxt ->
+            ) {
+                    newSearchTxt -> pokemonHomeViewModel.searchPokemonList(newSearchTxt)
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            PokemonHome(navController = navController)
             }
         }
     }
-}
 
 @Composable
 fun SearchBar(

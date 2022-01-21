@@ -13,8 +13,8 @@ interface PokemonApi {
         @Query("offset") offset : Int
     ) : PokemonList
 
-    @GET("pokemon/{id}")
+    @GET("pokemon/{name}")
     suspend fun getPokemon(
-        @Path("id") id : Int
+        @Path("name") name : String
     ) : Pokemon
 }
